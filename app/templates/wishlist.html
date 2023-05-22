@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <title>E-commerce Website - Product Detail</title>
+    <link rel="shortcut icon" href=' {% static "img/favicon.ico" %} ' type="image/x-icon">
+</head>
+<body>
+    <h1>Product Detail</h1>
+    <h2>{{ product.name }}</h2>
+    <p>Price: {{ product.price }}</p>
+    <p>Description: {{ product.description }}</p>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <a href="{% url 'add_to_cart' product.slug %}">Add to Cart</a>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>E-commerce Website - Shipping Address</title>
+    <link rel="shortcut icon" href=' {% static "img/favicon.ico" %} ' type="image/x-icon">
+</head>
+<body>
+    <h1>Shipping Address</h1>
+    {% if shipping_address %}
+        <p>Address: {{ shipping_address.address }}</p>
+        <p>City: {{ shipping_address.city }}</p>
+        <p>Postal Code: {{ shipping_address.postal_code }}</p>
+    {% else %}
+        <form method="POST" action="{% url 'shipping_address' %}">
+            {% csrf_token %}
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address">
+            <br>
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city">
+            <br>
+            <label for="postal_code">Postal Code:</label>
+            <input type="text" id="postal_code" name="postal_code">
+            <br>
+            <input type="submit" value="Save">
+        </form>
+    {% endif %}
+</body>
+</html>

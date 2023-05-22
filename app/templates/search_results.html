@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>E-commerce Website - Search Results</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            padding: 20px;
+        }
+        .search-form {
+            margin-bottom: 20px;
+        }
+    </style>
+    <link rel="shortcut icon" href=' {% static "img/favicon.ico" %} ' type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+        <form method="GET" action="{% url 'search' %}" class="search-form">
+            <div class="input-group">
+                <input type="text" class="form-control" name="query" placeholder="Search products..." required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+        {% if results %}
+            <h2>Results for "{{ query }}"</h2>
+            <div class="card-columns">
+                {% for product in results %}
+                <div class="card flex-fill">
+                    <div class="image-container2">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">Price: R{{ product.price }}</p>
+                        <p class="card-text {% if product.stock < 10 %}text-danger{% else %}text-success{% endif %}">
+                            Stock: {{ product.stock }}
+                        </p>
+                        <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary">
+                            <i class="fa fa-eye"></i>
+                            View Details
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

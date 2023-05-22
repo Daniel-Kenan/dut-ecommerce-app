@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ product.name }} - Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Payment Complete</h1>
+    <p>Thank you for your payment!</p>
+    <img src="{% static '/img/istockphoto-1200362333-612x612.jpg' %}" alt="Animated GIF">
+  
+</div>
+{% endblock %}
