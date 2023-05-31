@@ -44,10 +44,13 @@ def home(request):
     categories = Category.objects.all()
     products = Product.objects.filter(available=True)
     products = list(products)
+    for product in products:
+        product.original = product.price + random.randint(5,150)
     shuffle(products)
     context = {
         'categories': categories,
-        'products': products
+        'products': products,
+        
     }
     return render(request, 'home.html', context)
 
