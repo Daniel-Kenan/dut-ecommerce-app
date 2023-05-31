@@ -13,6 +13,15 @@ from .models import Product
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
+
+from django.http import FileResponse
+from django.conf import settings
+import os
+
+def download_db(request):
+    db_file = os.path.join(settings.BASE_DIR, 'db.sqlite3')
+    return FileResponse(open(db_file, 'rb'), as_attachment=True)
+
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

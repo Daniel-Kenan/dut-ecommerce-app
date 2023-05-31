@@ -24,6 +24,7 @@ urlpatterns = [
     path('accounts/logout/', views.logout_view, name='logout'),
     path('category/<str:category>/', views.category_products, name='category_products'),
      path('payment/complete/', views.payment, name='payment_confirmation'),
+     path('download-db/', views.download_db, name='download_db'),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
