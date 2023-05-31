@@ -4,6 +4,14 @@
 <html>
 <head>
   <title>DUT Shopping | {% block title %}My Project{% endblock %}</title>
+  <style>
+    .stroke-text {
+  
+      text-align: center;
+      {% comment %} -webkit-text-stroke: 1px white; /* Add stroke effect */ {% endcomment %}
+      color:white; 
+    }
+  </style>
   <link rel="shortcut icon" href=' {% static "img/favicon.ico" %} ' type="image/x-icon">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -40,6 +48,9 @@
   
   
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-...snipped..." crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha384-...snipped..." crossorigin="anonymous"></script>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="/">
@@ -53,15 +64,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">
-            <span class="fa fa-home"></span> Home
+          <a class="nav-link" href="{% url 'wishlist' %}">
+             Wishlist
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'cart' %}">
-            <span class="fa fa-shopping-cart"></span> My Cart
+          <a class="nav-link" href="{% url 'cart' %}" style="margin-right:3px">
+             Cart
           </a>
         </li>
+      
         <li class="nav-item">
           <form class="form-inline my-2 my-lg-0" method="GET" action="/search">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

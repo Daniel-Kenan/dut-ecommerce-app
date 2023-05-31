@@ -18,7 +18,6 @@ urlpatterns = [
     path('order/history/', views.order_history, name='order_history'),
     path('shipping/address/', views.shipping_address, name='shipping_address'),
     path('search/', views.search, name='search'),
-    # Authentication
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/login/', views.login_view, name='login'),
     path('accounts/logout/', views.logout_view, name='logout'),

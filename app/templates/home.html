@@ -2,29 +2,61 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 {% block content %}
-
-    <div class="jumbotron">
-        <h1 class="display-4">Welcome to the DUT Online Clothing</h1>
+<style>
+    *{font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif}
+    .category-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      
+      .category-item {
+        margin-bottom: 20px;
+        text-align: center;
+        width: 200px;
+      }
+      
+      .category-item a {
+        color: #333;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .category-item i {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      
+      .category-item span {
+        font-size: 16px;
+      }
+</style>
+    <div class="jumbotron" style="background-image: url('https://images.unsplash.com/photo-1561052967-61fc91e48d79?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGJhY2tncm91bmQlMjBjbG90aGVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60');background-position: center;background-repeat: no-repeat;background-size: cover;">
+        <h3 class=" stroke-text display-5" style="background-color: #7e2b2b83;padding: 5px;text-align: center;">Shop & Save: Unbeatable Deals Await</h3>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <h2>Categories</h2>
-            <ul class="list-group">
+            <div class="d-flex justify-content-between">
                 {% for category in categories %}
-                    <li class="list-group-item" style="cursor:pointer">
-                        <a href="{% url 'category_products' category.name %}">
-                            <i class="fa fa-folder-open"></i>
+                    <div class="category-item">
+                        <style>
+                            .btntet{border:1px solid #a45200; border-radius:10px; padding:5px; transition: 500ms;}
+                            .btntet:hover{background-color:  #7e2b2b83;color: white;border-color: red;}</style>
+                        <a href="{% url 'category_products' category.name %}" class="btntet" >
+                          
                             {{ category.name }}
                         </a>
-                    </li>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
+    <br/>
     
         <div class="col-md-12">
-            <h2>Products</h2>
             <div class="card-columns">
                 {% for product in products %}
                     <div class="card flex-fill">
