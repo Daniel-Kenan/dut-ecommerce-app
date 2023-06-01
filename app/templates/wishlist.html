@@ -17,7 +17,7 @@
                 <h5 class="card-title" style="font-size: 20px; text-transform: capitalize;">{{ product.name }}</h5>
                 <p style="font-size: 18px;" class="card-text">
                     <b>R{{ product.price }}</b> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <s style="color: gray">R{{ product.original }}</s> &nbsp;&nbsp;<br/><br/>
+                    <s style="color: gray; display:none">R{{ product.original }}</s> &nbsp;&nbsp;<br/><br/>
                     <span class="card-text {% if product.stock < 10 %}text-danger{% else %}text-success{% endif %}" style="font-size: 16px;">
                         {% if product.stock == 0 %}Out of Stock{% else %}Stock: {{ product.stock }}{% endif %}
                     </span>

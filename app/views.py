@@ -138,6 +138,7 @@ def cart_view(request):
     try:
         order = Order.objects.get(user=request.user, is_completed=False)
         order_items = OrderItem.objects.filter(order=order)
+        
         context = {
             'order': order,
             'order_items': order_items,
@@ -217,7 +218,28 @@ def payment(request):
 @login_required
 def order_history(request):
     orders = Order.objects.filter(user=request.user)
-    return render(request, 'order_history.html', {'orders': orders})
+
+    order_list = []
+    for order in orders:
+        order_items = order.orderitem_set.all()  # Access the related OrderItem objects
+        
+        products = []
+        for order_item in order_items:
+            product = {
+                'name': order_item.product.name,
+                'quantity': order_item.quantity
+            }
+            products.append(product)
+        
+        order_data = {
+            'id': order.id,
+            'status': order.delivery_status,
+            'products': products
+        }
+        
+        order_list.append(order_data)
+    
+    return render(request, 'order_history.html', {'orders': order_list})
 
 
 @login_required
