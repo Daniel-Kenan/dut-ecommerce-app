@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% load static %}
-    <title>E-commerce Website - Shipping Address</title>
-    <link rel="shortcut icon" href=' {% static "img/favicon.ico" %} ' type="image/x-icon">
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shipping Address{% endblock %}
+
+{% block content %}
     <h1>Shipping Address</h1>
     {% if shipping_address %}
         <p>Address: {{ shipping_address.address }}</p>
@@ -26,5 +24,4 @@
             <input type="submit" value="Save">
         </form>
     {% endif %}
-</body>
-</html>
+{% endblock %}

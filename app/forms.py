@@ -8,6 +8,10 @@ from .models import Driver
 class SearchForm(forms.Form):
     query = forms.CharField(label='Search')
 
+class DriverSignUpForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2')
 
 
 class DriverRegistrationForm(UserCreationForm):
@@ -27,3 +31,6 @@ class DriverRegistrationForm(UserCreationForm):
             user.save()
             driver = Driver.objects.create(user=user, name=self.cleaned_data['name'], phone_number=self.cleaned_data['phone_number'], license_plate_number=self.cleaned_data['license_plate_number'])
         return user
+    
+
+

@@ -9,6 +9,7 @@ from random import shuffle
 from django.shortcuts import render
 from .forms import SearchForm
 from .models import Product
+from .forms import DriverSignUpForm
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -90,7 +91,7 @@ def remove_from_wishlist(request, slug):
 @login_required
 def wishlist(request):
     try:
-        wishlist = Wishlist.objects.get(user=request.user)
+        wishlist = Wishlist.objects.filter(user=request.user)
     except Wishlist.DoesNotExist:
         wishlist = None
 
@@ -314,7 +315,7 @@ def update_delivery_status(request, order_id):
     if request.method == 'POST':
         delivery_status = request.POST.get('delivery_status')
         order.delivery_status = delivery_status
-        order.save()
+        order.save()    
         return redirect('driver_deliveries')
     
     context = {
@@ -344,6 +345,13 @@ def driver_register(request):
 def driver_dashboard(request):
     return render(request, 'driver_dashboard.html')
 
-
-
-
+# def driver_signup(request):
+#     if request.method == 'POST':
+#         form = DriverSignUpForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             # Additional logic to assign driver role to the user if necessary
+#             return redirect('login')  # Redirect to the login page
+#     else:
+#         form = DriverSignUpForm()
+#     return render(request, 'driver_signup.html', {'form': form})
