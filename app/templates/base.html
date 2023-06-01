@@ -74,6 +74,14 @@
              Cart
           </a>
         </li>
+        {% if user.is_authenticated %}
+        <!-- Order History Button -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'order_history' %}">
+            <span class="fa fa-history"></span> Order History
+          </a>
+        </li>
+      {% endif %} 
       
         <li class="nav-item">
           <form class="form-inline my-2 my-lg-0" method="GET" action="/search">

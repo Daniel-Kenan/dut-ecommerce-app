@@ -18,6 +18,11 @@ from django.http import FileResponse
 from django.conf import settings
 import os
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from .forms import DriverRegistrationForm
+
+
 def download_db(request):
     db_file = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     return FileResponse(open(db_file, 'rb'), as_attachment=True)
@@ -205,11 +210,8 @@ def payment(request):
 
 @login_required
 def order_history(request):
-    orders = Order.objects.filter(user=request.user, is_completed=True)
-    context = {
-        'orders': orders
-    }
-    return render(request, 'order_history.html', context)
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'order_history.html', {'orders': orders})
 
 
 @login_required
@@ -320,9 +322,6 @@ def update_delivery_status(request, order_id):
     }
     return render(request, 'update_delivery_status.html', context)
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from .forms import DriverRegistrationForm
 
 def driver_register(request):
     if request.method == 'POST':
@@ -339,3 +338,12 @@ def driver_register(request):
         'form': form
     }
     return render(request, 'driver_register.html', context)
+
+
+@login_required
+def driver_dashboard(request):
+    return render(request, 'driver_dashboard.html')
+
+
+
+

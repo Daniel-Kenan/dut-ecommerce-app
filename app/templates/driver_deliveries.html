@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Driver Deliveries{% endblock %}
 
 {% block content %}
-  <h2>Your Deliveries</h2>
-  {% for delivery in deliveries %}
-    <div class="delivery-item">
-      <p>Delivery ID: {{ delivery.id }}</p>
-      <p>Order: {{ delivery.order }}</p>
-      <p>Status: {{ delivery.delivery_status }}</p>
-      <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="delivery_id" value="{{ delivery.id }}">
-        <select name="delivery_status">
-          <option value="delivered">Delivered</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-        <button type="submit">Update Status</button>
-      </form>
-    </div>
-  {% endfor %}
+  <div class="container">
+    <h1>Driver Deliveries</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Delivery Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.delivery_status }}</td>
+          <td>
+            <a href="{% url 'update_delivery_status' order.id %}" class="btn btn-primary">Update Status</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}

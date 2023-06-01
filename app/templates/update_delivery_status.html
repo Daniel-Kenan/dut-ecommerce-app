@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Update Delivery Status{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Update Delivery Status - Order #{{ order.id }}</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="delivery_status">Delivery Status</label>
+        <select class="form-control" id="delivery_status" name="delivery_status">
+          <option value="pending" {% if order.delivery_status == 'pending' %}selected{% endif %}>Pending</option>
+          <option value="delivered" {% if order.delivery_status == 'delivered' %}selected{% endif %}>Delivered</option>
+          <option value="cancelled" {% if order.delivery_status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  </div>
+{% endblock %}

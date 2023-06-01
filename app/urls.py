@@ -28,6 +28,7 @@ urlpatterns = [
      path('driver/registration/', driver_registration, name='driver_registration'),
      path('driver/deliveries/', views.driver_deliveries, name='driver_deliveries'),
     path('driver/deliveries/<int:order_id>/', views.update_delivery_status, name='update_delivery_status'),
+     path('driver/dashboard/', views.driver_dashboard, name='driver_dashboard'),
 
 
     
