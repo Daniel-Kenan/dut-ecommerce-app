@@ -81,6 +81,14 @@
             <span class="fa fa-history"></span> Order History
           </a>
         </li>
+        {% if user.driver %}
+            <!-- Driver Dashboard Button -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'driver_dashboard' %}">
+                <span class="fa fa-truck"></span> Driver Dashboard
+              </a>
+            </li>
+          {% endif %}
       {% endif %} 
       
         <li class="nav-item">
