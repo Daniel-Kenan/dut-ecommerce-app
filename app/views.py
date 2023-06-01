@@ -62,14 +62,17 @@ def product_detail(request, slug):
         'product': product
     }
     return render(request, 'product.html', context)
+from django.contrib import messages
 
 @login_required
 def add_to_wishlist(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
-    wishlist.product.add(product)
-    return render(request, 'wishlist.html', {'wishlist': wishlist})
-
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user, product=product)
+    if created:
+        messages.success(request, "Product added to wishlist.")
+    else:
+        messages.warning(request, "Product already in wishlist.")
+    return redirect('wishlist')
 
 @login_required
 def remove_from_wishlist(request, slug):
@@ -81,7 +84,11 @@ def remove_from_wishlist(request, slug):
 
 @login_required
 def wishlist(request):
-    wishlist = get_object_or_404(Wishlist, user=request.user)
+    try:
+        wishlist = Wishlist.objects.get(user=request.user)
+    except Wishlist.DoesNotExist:
+        wishlist = None
+
     context = {
         'wishlist': wishlist
     }
@@ -261,3 +268,74 @@ def search(request):
     }
     return render(request, 'search_results.html', context)
 
+from .forms import DriverRegistrationForm
+from .models import Delivery
+def driver_registration(request):
+    if request.method == 'POST':
+        form = DriverRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Redirect to login page after successful registration
+    else:
+        form = DriverRegistrationForm()
+    return render(request, 'driver_registration.html', {'form': form})
+
+# @login_required
+# def driver_deliveries(request):
+#     driver = request.user.driver  # Assuming the driver is authenticated
+#     deliveries = Delivery.objects.filter(driver=driver)
+    
+#     if request.method == 'POST':
+#         delivery_id = request.POST.get('delivery_id')
+#         delivery_status = request.POST.get('delivery_status')
+#         delivery = Delivery.objects.get(pk=delivery_id)
+#         delivery.delivery_status = delivery_status
+#         delivery.save()
+    
+#     context = {
+#         'deliveries': deliveries
+#     }
+#     return render(request, 'driver_deliveries.html', context)
+
+@login_required
+def driver_deliveries(request):
+    # Get all orders assigned to the driver
+    driver_orders = Order.objects.filter(driver=request.user.driver)
+    context = {
+        'orders': driver_orders
+    }
+    return render(request, 'driver_deliveries.html', context)
+
+def update_delivery_status(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    
+    if request.method == 'POST':
+        delivery_status = request.POST.get('delivery_status')
+        order.delivery_status = delivery_status
+        order.save()
+        return redirect('driver_deliveries')
+    
+    context = {
+        'order': order
+    }
+    return render(request, 'update_delivery_status.html', context)
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from .forms import DriverRegistrationForm
+
+def driver_register(request):
+    if request.method == 'POST':
+        form = DriverRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Log in the user
+            login(request, user)
+            return redirect('driver_deliveries')
+    else:
+        form = DriverRegistrationForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'driver_register.html', context)

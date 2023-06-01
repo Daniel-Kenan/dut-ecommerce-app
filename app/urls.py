@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import driver_registration
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -24,6 +25,10 @@ urlpatterns = [
     path('category/<str:category>/', views.category_products, name='category_products'),
      path('payment/complete/', views.payment, name='payment_confirmation'),
      path('download-db/', views.download_db, name='download_db'),
+     path('driver/registration/', driver_registration, name='driver_registration'),
+     path('driver/deliveries/', views.driver_deliveries, name='driver_deliveries'),
+    path('driver/deliveries/<int:order_id>/', views.update_delivery_status, name='update_delivery_status'),
+
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
