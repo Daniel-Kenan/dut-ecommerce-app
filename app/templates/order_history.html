@@ -10,7 +10,7 @@
           Order ID: {{ order.id }} | Status: {{ order.delivery_status }}
           <ul style="display:flex; padding:10px">
             {% for order_item in order.orderitem_set.all %}
-              <li>
+              <li style="margin 10px">
                 <div class="product-info">
                   <div class="product-image">
                     <img src="{{ order_item.product.image.url }}" alt="{{ order_item.product.name }}" width=200>
