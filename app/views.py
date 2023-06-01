@@ -329,21 +329,17 @@ def update_delivery_status(request, order_id):
     return render(request, 'update_delivery_status.html', context)
 
 
+@login_required
 def driver_register(request):
     if request.method == 'POST':
         form = DriverRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Log in the user
-            login(request, user)
-            return redirect('driver_dashboard')  # Replace 'driver_dashboard' with your desired redirect URL after successful registration
+            # Additional logic or redirection after successful form submission
+            return redirect('home')
     else:
         form = DriverRegistrationForm()
-
-    context = {
-        'form': form
-    }
-    return render(request, 'driver_register.html', context)
+    return render(request, 'driver_register.html', {'form': form})
 
 
 @login_required

@@ -32,8 +32,12 @@
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'complete_order' %}" class="btn btn-primary">
-                        <i class="fa fa-check"></i>
+                        {% comment %} <i class="fa fa-check"></i> {% endcomment %}
                         Complete Order
+                    </a>
+                    <a href="{% url 'home' %}" class="btn btn-primary">
+                        {% comment %} <i class="fa fa-check"></i> {% endcomment %}
+                        Back to Products
                     </a>
                 </div>
             </div>

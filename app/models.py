@@ -56,6 +56,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_completed = models.BooleanField(default=False)
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True)
+    driver_assigned = models.BooleanField(default=False)  # New field for driver assignment
     DELIVERY_STATUS_CHOICES = (
         ('pending', 'Pending'),
         ('delivered', 'Delivered'),

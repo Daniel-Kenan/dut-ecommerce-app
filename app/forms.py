@@ -24,12 +24,12 @@ class DriverRegistrationForm(UserCreationForm):
         fields = ('username', 'password1', 'password2', 'name', 'phone_number', 'license_plate_number')
 
     def save(self, commit=True):
-        user = super().save(commit=False)
-        user.first_name = self.cleaned_data['name'].split()[0]
-        user.last_name = self.cleaned_data['name'].split()[1]
-        if commit:
-            user.save()
-            driver = Driver.objects.create(user=user, name=self.cleaned_data['name'], phone_number=self.cleaned_data['phone_number'], license_plate_number=self.cleaned_data['license_plate_number'])
+      user = super(DriverRegistrationForm, self).save(commit=False)
+      user.first_name = self.cleaned_data['name'].split()[0]
+      if ' ' in self.cleaned_data['name']:
+       user.last_name = self.cleaned_data['name'].split()[1]
+       if commit:
+        user.save()
         return user
     
 
