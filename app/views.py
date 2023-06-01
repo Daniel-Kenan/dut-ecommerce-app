@@ -219,27 +219,14 @@ def payment(request):
 def order_history(request):
     orders = Order.objects.filter(user=request.user)
 
-    order_list = []
     for order in orders:
         order_items = order.orderitem_set.all()  # Access the related OrderItem objects
-        
-        products = []
         for order_item in order_items:
-            product = {
-                'name': order_item.product.name,
-                'quantity': order_item.quantity
-            }
-            products.append(product)
-        
-        order_data = {
-            'id': order.id,
-            'status': order.delivery_status,
-            'products': products
-        }
-        
-        order_list.append(order_data)
-    
-    return render(request, 'order_history.html', {'orders': order_list})
+            print("Order ID:", order.id, "| Status:", order.delivery_status)
+            print("Product:", order_item.product.name, "| Quantity:", order_item.quantity)
+            
+    return render(request, 'order_history.html', {'orders': orders})
+
 
 
 @login_required
