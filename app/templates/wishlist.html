@@ -3,32 +3,33 @@
 {% block title %}{{ product.name }} - Product Detail{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="card product-card">
-      <div class="image-container">
-        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.description }}</p>
-        <p class="card-text">Price: R{{ product.price }}</p>
-        <p class="card-text">Stock: {{ product.stock }}</p>
-        {% if product.available %}
-          <p class="card-text text-success">Availability: In Stock</p>
-        {% else %}
-          <p class="card-text text-danger">Availability: Out of Stock</p>
-        {% endif %}
-      </div>
-      <div class="card-footer">
-        {% if product.slug %}
-          <a href="{% url 'add_to_wishlist' product.slug %}" class="btn btn-primary">
-            <i class="fa fa-heart mr-2"></i>
-            Add to Wishlist
-          </a>
-        {% else %}
-          <p>Product slug is not available.</p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
+{% if wishlist %}
+<h1>My Wishlist</h1>
+
+    <div class="col-md-11" style="margin: auto;">
+        <div class="card-columns">
+            {% for product in wishlist %}
+            <div class="card flex-fill" onclick="location.href=`{% url 'product_detail' product.slug %}` " style="cursor: pointer; margin-top: 20px;">
+                <div class="image-container2" style="width: 100%;aspect-ratio: 1;height: 270px;">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="width: 100%; height: 100%;margin: auto;display: block;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 20px;text-transform: capitalize;">{{ product.name }}</h5>
+                    
+                    <p style="font-size: 18px;" class="card-text"><b>R{{ product.price }}</b> &nbsp;&nbsp;&nbsp;&nbsp;<s style="color:gray">R{{ product.original }}</s> &nbsp;&nbsp;<br/><br/><span class="card-text {% if product.stock < 10 %}text-danger{% else %}text-success{% endif %}" style="font-size: 16px;">
+                        {% if  product.stock == 0 %}Out of Stock{% else %} Stock: {{ product.stock }}{% endif %}
+                    </span></p>
+                   
+                    <!-- <a href="{% url 'product_detail' product.slug %}" class="btn btn-outline-warning">
+                        <i class="fa fa-eye"></i>
+                        View Details
+                    </a> -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+{% else %}
+<h1>No Wishlist Found</h1>
+{% endif %}
 {% endblock %}

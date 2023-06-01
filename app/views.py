@@ -92,12 +92,17 @@ def remove_from_wishlist(request, slug):
 def wishlist(request):
     try:
         wishlist = Wishlist.objects.filter(user=request.user)
+        tmp = []
+        for wish in wishlist: 
+          tmp.append(wish.product)
+        
     except Wishlist.DoesNotExist:
         wishlist = None
-
+   
     context = {
-        'wishlist': wishlist
+        'wishlist': tmp
     }
+    
     return render(request, 'wishlist.html', context)
 
 
