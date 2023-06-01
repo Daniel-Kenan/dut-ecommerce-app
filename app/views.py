@@ -336,10 +336,10 @@ def driver_register(request):
             user = form.save()
             # Log in the user
             login(request, user)
-            return redirect('driver_deliveries')
+            return redirect('driver_dashboard')  # Replace 'driver_dashboard' with your desired redirect URL after successful registration
     else:
         form = DriverRegistrationForm()
-    
+
     context = {
         'form': form
     }
