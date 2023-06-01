@@ -336,7 +336,7 @@ def driver_register(request):
         if form.is_valid():
             user = form.save()
             # Additional logic or redirection after successful form submission
-            return redirect('home')
+            return redirect('driver_dashboard')
     else:
         form = DriverRegistrationForm()
     return render(request, 'driver_register.html', {'form': form})
